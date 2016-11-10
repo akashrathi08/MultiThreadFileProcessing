@@ -8,7 +8,10 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class UserInput extends Thread {
+/*
+ * Thread class for taking SIGTERM user input
+ */
+public class UserInput implements Runnable {
 	
 	DataProcessorThread dph;
 	

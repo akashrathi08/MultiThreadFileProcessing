@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/*
+ * Thread for processing files
+ */
 public class DataProcessorThread implements Runnable {
 
 	public boolean SIGTERM = false;

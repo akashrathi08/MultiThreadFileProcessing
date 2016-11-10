@@ -23,7 +23,9 @@ public class DataProcessor {
 		t2.start();
 		t3.start();
 		
-		new UserInput(dp).start();
+		Thread userInputThread = new Thread(new UserInput(dp), "userInputThread");
+		userInputThread.start();
+		
 	}
 
 }
