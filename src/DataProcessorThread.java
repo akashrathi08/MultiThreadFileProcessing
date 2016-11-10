@@ -39,7 +39,7 @@ public class DataProcessorThread implements Runnable {
 	}
 
 	private void restoreState() {
-		FileInputStream fin;
+		FileInputStream fin = null;
 		try {
 			fin = new FileInputStream("dataMap.ser");
 			ObjectInputStream ois = new ObjectInputStream(fin);
@@ -52,6 +52,13 @@ public class DataProcessorThread implements Runnable {
 			System.out.println("No state to restore");
 		} catch (IOException | ClassNotFoundException e) {
 			System.out.println("Error reading state.");
+		}finally {
+			try {
+				if (fin != null)
+					fin.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -65,7 +72,7 @@ public class DataProcessorThread implements Runnable {
 		updateThreadStatus(threadName, "executingThread");
 
 		// Reads the file in waiting list and starts processing it
-		while (fileStatus.get("waitingFile").size() > 0) {
+		while (fileStatus.get("waitingFile").size() > 0 && !SIGTERM) {
 			readFiles(threadName, threadStatus, fileStatus);
 			System.out.println("------------file completed-------------");
 		}
